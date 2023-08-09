@@ -1,5 +1,4 @@
 # Comando 
-
 ### Comando inicial para o migration
     dotnet ef migrations add dbInitial
 
