@@ -1,4 +1,6 @@
 ﻿using System;
+using Kazuo.ProjetoTest.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -217,6 +219,17 @@ namespace Kazuo.ProjetoTest.Migrations
                 name: "IX_Tarefas_UsuarioId",
                 table: "Tarefas",
                 column: "UsuarioId");
+
+
+            //SEED Feio gambiarrento
+            var hasher = new PasswordHasher<Usuario>();
+            var passwordHash = hasher.HashPassword(null, "1234Abcd");
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "UserName", "NormalizedUserName", "Email", "NormalizedEmail", "EmailConfirmed", "PasswordHash", "SecurityStamp", "AccessFailedCount", "PhoneNumberConfirmed", "TwoFactorEnabled", "LockoutEnabled" },
+                values: new object[] { Guid.NewGuid(), "user@example.com", "USER@EXAMPLE.COM", "user@example.com", "USER@EXAMPLE.COM", true, passwordHash, string.Empty,0, true,false,false });
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

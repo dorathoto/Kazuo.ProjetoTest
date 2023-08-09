@@ -6,7 +6,7 @@ namespace Kazuo.ProjetoTest.Models
     {
         public Guid TarefaId { get; set; }
 
-        public DateTime DataRealizacaoTarefa { get; set; }
+        public DateTime DataRealizacaoTarefa { get; set; }//opcional
 
         public Guid UsuarioId { get; set; }
 

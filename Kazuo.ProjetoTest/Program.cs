@@ -13,17 +13,25 @@ namespace Kazuo.ProjetoTest
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+           
+           
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-             builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews();
+
+
+            //comentado o padrao original pq vamos usar o Identity personalizado com Guid
+            //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //  .AddEntityFrameworkStores<ApplicationDbContext>();
+
             builder.Services.AddIdentity<Usuario, Funcao>(options =>
             {
                
-            }).AddEntityFrameworkStores<ApplicationDbContext>() // Substitua YourDbContext pelo seu contexto de banco de dados
+            }).AddEntityFrameworkStores<ApplicationDbContext>() 
                .AddDefaultTokenProviders();
 
 
@@ -53,7 +61,7 @@ namespace Kazuo.ProjetoTest
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+           // app.MapRazorPages();
 
             app.Run();
         }

@@ -1,5 +1,6 @@
 ﻿using Kazuo.ProjetoTest.Data;
 using Kazuo.ProjetoTest.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,12 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Kazuo.ProjetoTest.Controllers
 {
+    [Authorize] //somente logado
     public class TarefasController : Controller
     {
         private readonly UserManager<Usuario> _userManager; //injetando o userManager
         private readonly ApplicationDbContext _context;
 
-        public TarefasController(ApplicationDbContext context, UserManager<Usuario> userManager)
+        public TarefasController(ApplicationDbContext context
+            , UserManager<Usuario> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -23,13 +26,13 @@ namespace Kazuo.ProjetoTest.Controllers
         {
             var usuario = await _userManager.GetUserAsync(User); //pegando o usuario logado
 
-            var applicationDbContext = await _context.Tarefas
+            var tarefasDoUser = await _context.Tarefas
                 .Include(t => t.Usuario)
                 .Where(w => w.UsuarioId == usuario.Id)
                 .ToListAsync();
 
 
-            return View(applicationDbContext);
+            return View(tarefasDoUser);
         }
 
         // GET: Tarefas/Details/5
