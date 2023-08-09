@@ -14,17 +14,6 @@ namespace Kazuo.ProjetoTest.Data
 
         public DbSet<Tarefa> Tarefas { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Usuario>()
-                .Property(e => e.Id)
-                .HasColumnName("UserId");
-
-            modelBuilder.Entity<Funcao>()
-                .Property(e => e.Id)
-                .HasColumnName("RoleId");
-        }
+        
     }
 }
